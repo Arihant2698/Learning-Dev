@@ -4,7 +4,8 @@ export default class Movies extends Component {
     constructor(props){
         super(props);
         this.state = {
-            movies : getMovies()
+            movies : getMovies(),
+            currSearchText:''
         }
     }
     handleDelete=(id)=>{
@@ -15,15 +16,30 @@ export default class Movies extends Component {
                 movies:nta
             })
     }
+    handleChange=(e)=>{
+            this.setState({currSearchText:e.target.value})
+    }
+
     render() {
-        let {movies} = this.state;
+        let {movies,currSearchText} = this.state;
+        let filtertitle=[];
+        if(currSearchText !=''){
+                 filtertitle= movies.filter((tit)=>{
+                    let title = tit.title.trim().toLowerCase();
+                    return title.includes(currSearchText.toLowerCase());
+
+                 })
+        }else{
+                filtertitle=movies;
+        }
+
     return (
       <div className='row'>
         <div className='col-3'>
             <h1>Hello</h1>
         </div>
       <div className='col-9'>
-        <input type="text"></input>
+        <input type="text" onChange={this.handleChange}  value={this.state.currSearchText}></input>
       
         <table class="table">
   <thead>
@@ -37,7 +53,7 @@ export default class Movies extends Component {
   </thead>
   <tbody>
   {
-        movies.map(movie=>(
+        filtertitle.map(movie=>(
      <tr scope='row' key={movies._id}>
             <td></td>
            <td>{movie.title}</td>
