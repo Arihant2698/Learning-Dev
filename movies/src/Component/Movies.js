@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { getMovies } from "./getMovies";
+import './Movies.css';
 import axios from 'axios'
 export default class Movies extends Component {
   constructor(props) {
@@ -106,6 +107,13 @@ export default class Movies extends Component {
     filterMovies = filterMovies.slice(si, ei);
 
     return (
+        <>
+        {
+            this.state.movies.length==0?
+            <div className="spinner-border text-primary"  role="status">
+<span className="sr-only">Loading...</span>
+</div>
+        :
       <div className="row">
         <div className="col-3">
           <h1>Hello</h1>
@@ -210,6 +218,6 @@ export default class Movies extends Component {
           </nav>
         </div>
       </div>
-    );
+  }</> );
   }
 }
