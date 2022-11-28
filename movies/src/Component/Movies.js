@@ -24,9 +24,15 @@ export default class Movies extends Component {
   sortByStock = (e) => {
     let className = e.target.className;
     let arrSort = [];
+    //We have applied the same click event on both the arrows of the stock column
+    // so we have to identify whether we have to sort in descending or ascending order.
+    //  for this we have used the class Names as a condition
     if (className == "fa-solid fa-sort-up") {
       //sort() will sort help for sorting
       //    movie a- movie b will sort in asc order
+      // We need to provide JS with how to compare the two elements when we are trying to sort an array of derived data-types
+      // such as objects.
+      // a-b is used for sorting in ascending order
       arrSort = this.state.movies.sort((movieA, movieB) => {
         return movieA.numberInStock - movieB.numberInStock;
       });
@@ -42,6 +48,7 @@ export default class Movies extends Component {
   };
   sortByRatings = (e) => {
     let className = e.target.className;
+    //ascending order m sort
     let arrRate = [];
     if (className == "fa-solid fa-sort-up") {
       arrRate = this.state.movies.sort((movieA, movieB) => {
@@ -60,14 +67,15 @@ export default class Movies extends Component {
     let newlimit = Number(e.target.value);
     this.setState({ limit: newlimit });
   };
-  changePage=(page)=>{
+  changePage = (page) => {
     this.setState({
-        currPage:page
-    })
-  }
+      currPage: page,
+    });
+  };
   render() {
     let { movies, currSearchText, currPage, limit } = this.state;
     let filterMovies = [];
+    //searching
     if (currSearchText != "") {
       filterMovies = movies.filter((tit) => {
         let title = tit.title.trim().toLowerCase();
@@ -76,10 +84,12 @@ export default class Movies extends Component {
     } else {
       filterMovies = movies;
     }
-    let TotPage = Math.ceil(filterMovies.length/limit);
-    let Pagearr=[];
-    for(let i=0;i<TotPage;i++){
-        Pagearr.push(i+1);
+    ///////////////////////////////////////
+    //Pagination & Limit
+    let TotPage = Math.ceil(filterMovies.length / limit);
+    let Pagearr = [];
+    for (let i = 0; i < TotPage; i++) {
+      Pagearr.push(i + 1);
     }
     let si = (currPage - 1) * limit;
     let ei = si + limit;
@@ -110,6 +120,8 @@ export default class Movies extends Component {
                 ? filterMovies.length
                 : this.state.limit
             }
+            // suppose we limit of 4 and we type th we have only 2 movies of type th ....
+            // this would lead to a bug where we ony have 2 movies in filter Array but in input tag we have 4 as our default limit
             onChange={this.handleLimit}
             min="1"
             max={movies.length}
@@ -168,30 +180,22 @@ export default class Movies extends Component {
           </table>
           <nav aria-label="...">
             <ul class="pagination pagination_lg">
-                {/* <a class="page-link" href="#">
-              <li class="page-item">
-                  1
-                </a>
-              </li>
-              <li class="page-item active" aria-current="page">
-                <span class="page-link">2</span>
-              </li>
-              <li class="page-item">
-                <a class="page-link" href="#">
-                  3
-                </a> 
-                </li>
-                */}
-                {
-                    Pagearr.map((page)=>{
-                        let classCustName = page === currPage?"page-item active":"page-item";
-                        return(
-                        <li class={classCustName} onClick={()=>this.changePage(page)} key={page} aria-current="page">,
-                        <span class="page-link">{page}</span>; 
-                        </li>
-                        )                  
-                })
-                }
+              {Pagearr.map((page) => {
+                let classCustName =
+                  page === currPage ? "page-item active" : "page-item";
+                // the above let variable is used to define the class too be put on the li element.
+                //  As this decides the blue backgroound.
+                return (
+                  <li
+                    class={classCustName}
+                    onClick={() => this.changePage(page)}
+                    key={page}
+                    aria-current="page"
+                  >
+                    ,<span class="page-link">{page}</span>;
+                  </li>
+                );
+              })}
             </ul>
           </nav>
         </div>
