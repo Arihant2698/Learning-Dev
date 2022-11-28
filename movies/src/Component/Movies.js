@@ -1,15 +1,24 @@
 import React, { Component } from "react";
 import { getMovies } from "./getMovies";
+import axios from 'axios'
 export default class Movies extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      movies: getMovies(),
+      movies: [],
       currSearchText: "",
       currPage: 1,
       limit: 4,
     };
   }
+  async componentDidMount(){
+    console.log('Component DID Mount');
+    let promise = axios.get('https://backend-react-movie.herokuapp.com/movies');
+    let data = await promise;
+    this.setState({
+        movies:data.data.movies
+    })
+}
   handleDelete = (id) => {
     let nta = this.state.movies.filter((movie) => {
       return movie._id != id;
@@ -73,6 +82,7 @@ export default class Movies extends Component {
     });
   };
   render() {
+    console.log("render");
     let { movies, currSearchText, currPage, limit } = this.state;
     let filterMovies = [];
     //searching
@@ -159,7 +169,7 @@ export default class Movies extends Component {
             </thead>
             <tbody>
               {filterMovies.map((movie) => (
-                <tr scope="row" key={movies._id}>
+                <tr scope="row" key={movie._id}>
                   <td></td>
                   <td>{movie.title}</td>
                   <td>{movie.genre.name}</td>
@@ -179,7 +189,7 @@ export default class Movies extends Component {
             </tbody>
           </table>
           <nav aria-label="...">
-            <ul class="pagination pagination_lg">
+            <ul className="pagination pagination_lg">
               {Pagearr.map((page) => {
                 let classCustName =
                   page === currPage ? "page-item active" : "page-item";
@@ -187,12 +197,12 @@ export default class Movies extends Component {
                 //  As this decides the blue backgroound.
                 return (
                   <li
-                    class={classCustName}
+                    className={classCustName}
                     onClick={() => this.changePage(page)}
                     key={page}
                     aria-current="page"
                   >
-                    ,<span class="page-link">{page}</span>;
+                    ,<span className="page-link">{page}</span>;
                   </li>
                 );
               })}
