@@ -19,7 +19,43 @@ export default class Movies extends Component {
     handleChange=(e)=>{
             this.setState({currSearchText:e.target.value})
     }
+   sortByStock=(e)=>{
+   let className = e.target.className;
+    let arrSort=[];
+    if(className=='fa-solid fa-sort-up'){
+        //sort() will sort help for sorting 
+        //    movie a- movie b will sort in asc order
+        arrSort=this.state.movies.sort((movieA,movieB)=>{
+                return movieA.numberInStock-movieB.numberInStock;
+            })
+    }else{
 
+        //Movie b- movie a will sort in desc
+        arrSort=this.state.movies.sort((movieA,movieB)=>{
+            return movieB.numberInStock-movieA.numberInStock;
+        })
+    }
+    this.setState({
+        movies:arrSort
+    })
+   }
+   sortByRatings=(e)=>{
+            let className=e.target.className;
+            let arrRate=[];
+            if(className=='fa-solid fa-sort-up'){
+                arrRate=this.state.movies.sort((movieA,movieB)=>{
+                    return movieA.dailyRentalRate-movieB.dailyRentalRate;
+                })
+            }
+            else{
+            arrRate=this.state.movies.sort((movieA,movieB)=>{
+                return movieB.dailyRentalRate-movieA.dailyRentalRate;
+            })
+                }
+            this.setState({
+                moveies:arrRate
+            })
+   }
     render() {
         let {movies,currSearchText} = this.state;
         let filtertitle=[];
@@ -47,8 +83,15 @@ export default class Movies extends Component {
       <th scope="col">#</th>
       <th scope="col">Title</th>
       <th scope="col">Genre</th>
-      <th scope="col">Stock</th>
-      <th scope="col">Rate</th>
+      <th scope="col">
+      <i className="fa-solid fa-sort-up" onClick={this.sortByStock}></i>
+      Stock
+      <i className="fa-solid fa-sort-down" onClick={this.sortByStock}></i>
+       </th>
+      <th scope="col">
+      <i className="fa-solid fa-sort-up" onClick={this.sortByRatings}></i>
+      Rate
+      <i className="fa-solid fa-sort-down" onClick={this.sortByRatings}></i></th>
     </tr>
   </thead>
   <tbody>
