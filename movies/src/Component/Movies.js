@@ -10,14 +10,18 @@ export default class Movies extends Component {
       currSearchText: "",
       currPage: 1,
       limit: 4,
+      genres:[{_id:'abcd',name:'All Genres'}],
+      cgenre:"All Genre"
     };
   }
   async componentDidMount(){
     console.log('Component DID Mount');
-    let promise = axios.get('https://backend-react-movie.herokuapp.com/movies');
-    let data = await promise;
+    let res = await axios.get('https://backend-react-movie.herokuapp.com/movies');
+   let genreRes = await axios.get('https://backend-react-movie.herokuapp.com/genres');
     this.setState({
-        movies:data.data.movies
+        movies:res.data.movies,
+       genres:[...this.state.genres,...genreRes.data.genres]
+       
     })
 }
   handleDelete = (id) => {
@@ -82,9 +86,17 @@ export default class Movies extends Component {
       currPage: page,
     });
   };
+hangleGenre=(name)=>{
+    this.setState({
+        cgenre:name
+    })
+}
+
+
+
   render() {
-    console.log("render");
-    let { movies, currSearchText, currPage, limit } = this.state;
+  //  console.log("render");
+    let { movies, currSearchText, currPage, limit ,genres,cgenre} = this.state;
     let filterMovies = [];
     //searching
     if (currSearchText != "") {
@@ -94,6 +106,13 @@ export default class Movies extends Component {
       });
     } else {
       filterMovies = movies;
+    }
+    ///////////////////////////////////////
+    /////Genre
+    if (cgenre!="All Genre") {
+       filterMovies= filterMovies.filter((movie)=>{
+            return movie.genre.name == cgenre
+    })     
     }
     ///////////////////////////////////////
     //Pagination & Limit
@@ -106,6 +125,8 @@ export default class Movies extends Component {
     let ei = si + limit;
     filterMovies = filterMovies.slice(si, ei);
 
+
+   
     return (
         <>
         {
@@ -116,7 +137,13 @@ export default class Movies extends Component {
         :
       <div className="row">
         <div className="col-3">
-          <h1>Hello</h1>
+        <ul class="list-group">
+           { genres.map((genreObj)=>(
+            <li className="list-group-item fw-bold" onClick={()=>{this.hangleGenre(genreObj.name)}} key={genreObj._id}>{genreObj.name}</li>
+           
+        ))}
+         </ul>
+         <h2>Curr Genre:{cgenre}</h2>
         </div>
         <div className="col-9">
           <input
