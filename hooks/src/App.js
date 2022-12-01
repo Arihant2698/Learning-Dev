@@ -1,19 +1,25 @@
-import Uswo from "./useState/Uswo";
-import Ue1 from "./useEffect/Ue1";
-import Ue2 from "./useEffect/Ue2";
-import Ue3 from "./useEffect/Ue3";
-import Infinite from "./useEffect/Infinite";
-import Uec1 from "./useEffect/UseEffect_Clean_up/Uec1";
+// import logo from './logo.svg';
+import './App.css';
+import Us from './UseState/Us';
+import Ue2 from './useEffect/Ue2';
+import Infinite from './useEffect/Infinite';
+import Ue3 from './useEffect/Ue3';
+import Uewc from './useEffect/cleanUp/Uewc';
+import Main from './Context/Main';
+import Central from './Context2/Central';
 function App() {
   return (
-    <>
-    {/* <Uswo/> */}
-     {/* <Ue1/> */}
-    {/* <Ue2/> */}
-    {/* <Ue3/> */}
-    {/* <Infinite/> */}
-    <Uec1/>
-    </>
+<>
+{/* <h1>Heelo</h1> */}
+{/* <Us/>
+ */}
+{/* <Ue2/> */}
+{/* <Infinite/> */}
+{/* <Ue3/> */}
+{/* <Uewc/> */}
+<Main/>
+{/* <Central/> */}
+</>
   );
 }
 
