@@ -1,8 +1,7 @@
-// import { async } from '@firebase/util';
 import React,{useState,useEffect} from 'react'
 import firebase from './firebase'
 function Demo() {
-    // console.log(firebase.auth());
+    // console.log(firebase);
     const auth = firebase.auth();
     const [user,setUser]= useState(null);
     const[email,setEmail] =useState('');
@@ -29,18 +28,20 @@ function Demo() {
         setEmail('')
     }
     const handleSignOut =async()=>{
-            try {
-                setLoading(true)
-                let res= await auth.signOut();
-                setUser(null); 
-                setLoading(false);
-            } catch (e) {
-                setError(e.message)
-                setTimeout(()=>{
-                    setError('')
-                },5000)
-                setLoading(false);
-            }
+        try{
+            setLoading(true);
+            let res = await auth.signOut();
+            console.log(res);
+            setUser(null);
+            setLoading(false)
+        }
+        catch(e){
+            setError(e.message);
+            setTimeout(()=>{
+                setError('')
+            },2000)
+            setLoading(false)
+        }
     }
     return (
         <>
@@ -64,7 +65,7 @@ function Demo() {
         }
         </>
     )
-
+        
 }
 
 export default Demo
