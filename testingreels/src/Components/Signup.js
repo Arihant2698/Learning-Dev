@@ -17,7 +17,7 @@ function Signup() {
         let res = await signup(email,password);
         let uid = res.user.uid;
         console.log(uid); 
-        const uploadTaskListener = storage.ref(`/users/${uid}/profileImage`).put(file);
+        const uploadTaskListener = storage.ref(`/users/${uid}/profileImage`).put(file);    //In Storage if it is not working than we have to edit the permission in firebase/storage
         // Register three observers:
 // 1. 'state_changed' observer, called any time the state changes
 // 2. Error observer, called on failure
@@ -51,8 +51,7 @@ function Signup() {
             setLoading(false);
             console.log('User has Signed up');
         }
-    
-      
+        
     }
     catch(err){
         setError(err)
