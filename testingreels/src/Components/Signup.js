@@ -87,7 +87,7 @@ function Signup() {
                     <label htmlFor='profile'>Profile image</label>
                     <input type='file' accept='image/*' onChange={handleFileSubmit}></input>
                 </div>
-                <button type='submit' disabled={loading}>Login</button>
+                <button type='submit' disabled={loading}>Sign Up</button>
             </form>
         </div>
     )
