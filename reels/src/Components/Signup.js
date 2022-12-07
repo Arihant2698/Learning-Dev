@@ -1,6 +1,8 @@
 import React,{useState,useEffect,useContext} from 'react'
 import {AuthContext} from '../Context/AuthProvider';
 import { storage,database } from '../firebase';
+//useHistory to redirect the page if the user after login or already login to feed page 
+import {useHistory} from 'react-router-dom';
 function Signup() {
     const [email,setEmail] =useState('');
     const[password,setPassword] = useState('');
@@ -8,7 +10,8 @@ function Signup() {
     const[error,setError] = useState('');
     const[loading,setLoading] = useState(false);
     const [file,setFile] = useState(null)
-    const {signup} =useContext(AuthContext);
+    const {signup,currentUser} =useContext(AuthContext);
+    const history =useHistory();
     console.log(signup);
     const handleSignup =async (e)=>{
         e.preventDefault();
@@ -50,7 +53,9 @@ function Signup() {
             })
             setLoading(false);
             console.log('User has Signed up');
-        }
+            //If user signup then we have to redirect it to feed page
+            history.push('/');
+                }
     
       
     }
@@ -68,6 +73,12 @@ function Signup() {
             setFile(file)
         }
     }
+    //If a user is already login then we have to redirect it to feed page 
+    useEffect(()=>{
+        if(currentUser){
+            history.push("/")
+        }
+    },[])
     return (
         <div>
             <form onSubmit={handleSignup} >
