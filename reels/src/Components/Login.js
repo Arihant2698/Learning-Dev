@@ -6,7 +6,7 @@ export default function Login() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('')
     const [error, setError] = useState("")
-    const [loading, setLoading] = useState(false);
+    const [loading, setLoading] = useState(true);
     const {login,currentUser} =useContext(AuthContext);
     const history = useHistory();
      const handleSubmit = async(e)=>{
@@ -30,8 +30,13 @@ export default function Login() {
         if(currentUser){
             history.push('/')
         }
+        setLoading(false);
       },[])
+
+      //here added a conditon that if a user is login then don't render it directly transfer to useeffect so user cannot see the login page image
+      //not req for mini project but added it will be visible when project is large u can check by removing below condition in signup page
     return (
+        !loading?
         <div>
               <form onSubmit={handleSubmit} >
              <div>
@@ -47,6 +52,6 @@ export default function Login() {
                 error?alert(error):<></>}
                 </form>
 
-        </div>
+        </div>:<></>
     )
 }
