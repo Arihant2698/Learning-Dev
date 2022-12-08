@@ -22,19 +22,19 @@ export default function UploadFile(props) {
           
           setError("File not selected");
           console.log(error);
-          setTimeout(setError(""),5000);
+          setTimeout(()=>{setError(null)},5000)
           return
          }        
          if(types.indexOf(file.type)==-1){
            setError("File format is not proper");
            console.log(error);
-           setTimeout(setError(""),5000);
-           return
-         }
+          setTimeout(()=>{setError(null)},5000)
+          return; 
+        }
         if(file.size/(1024*1024)>100){
           setError("File size is greater than 100 mb");
           console.log(error);
-          setTimeout(setError(""),5000);
+          setTimeout(()=>{setError(null)},5000)
           return
        }
        const id= uuidv4();  //Generate random uid 
@@ -49,7 +49,7 @@ export default function UploadFile(props) {
         function fn2(error){
             setError(error);
             setTimeout(()=>{
-                setError('')
+                setError(null)
             },2000);
             setLoading(false)
         }
@@ -61,6 +61,7 @@ export default function UploadFile(props) {
                   likes:[],
                   pId:id,
                   pUrl:url,
+                  //? --> added because if props is undefined then it will not go ahead
                   uName:props?.userData?.username,
                   uProfile:props?.userData?.profileUrl,
                   userId:props?.userData?.userId,
@@ -81,7 +82,7 @@ export default function UploadFile(props) {
               }).catch(e=>{
                   setError(e);
                   setTimeout(()=>{
-                      setError('')
+                      setError(null)
                   },2000);
                   setLoading(false)
               })
