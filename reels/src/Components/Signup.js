@@ -43,6 +43,7 @@ function Signup() {
         async function fn3(){
             let downloadUrl = await uploadTaskListener.snapshot.ref.getDownloadURL();
             console.log(downloadUrl);
+            //set data in users collection
           await database.users.doc(uid).set({
                 email:email,
                 userId:uid,
