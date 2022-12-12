@@ -6,7 +6,7 @@
 {
     height: 80vh;
     width: 35vw;
-
+    
 }
 .videos{
     position: relative;
@@ -62,7 +62,7 @@
 }
 
 .video-container {
-
+    
     height: 80vh;
     border-radius: 20px;
     background-color: white;
@@ -70,7 +70,7 @@
     scroll-snap-type: y mandatory;
     scrollbar-width: none;
   }
-
+  
   /* for chrome and opera */
   .video-container::-webkit-scrollbar {
     display: none;

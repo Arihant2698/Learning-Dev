@@ -17,6 +17,7 @@ import MuiDialogContent from '@material-ui/core/DialogContent';
 import Video from './Video';
 import { database } from '../firebase';
 import Likes from './Likes';
+import AddComment from './AddComment';
 const useStyles = makeStyles({
     root: {
       width: '100%',
@@ -46,7 +47,6 @@ const useStyles = makeStyles({
       height:'54vh',
       overflowY:'auto'
     },
-
     ci:{
     
       color: 'white',
@@ -66,14 +66,14 @@ const useStyles = makeStyles({
 function Posts({userData=null}) {
   const classes = useStyles();
   const[posts,setPosts] = useState(null);
-  const [openId,setOpenid]= useState(null);
-  const handleClickOpen = (id)=>{
-    setOpenid(id);
-  } ;
-  const handleClose = ()=>{
-    setOpenid(null);
+  const [openId, setOpenId] = useState(null);
+  const handleClickOpen = (id) => {
+    setOpenId(id);
   };
-  const callback = entries=>{
+  const handleClose = () => {
+    setOpenId(null);
+  };
+      const callback = entries=>{
         entries.forEach(element => {
             console.log(element);
             let el = element.target.childNodes[0];
@@ -87,7 +87,7 @@ function Posts({userData=null}) {
 
         });
     }
-    const observer = new IntersectionObserver(callback,{ threshold:0.85 }); //85%
+    const observer = new IntersectionObserver(callback,{ threshold:0.85 });
     useEffect(()=>{
       let parr=[];
       const unsub = database.posts.orderBy('createdAt','desc').onSnapshot(querySnapshot=>{
@@ -164,7 +164,7 @@ function Posts({userData=null}) {
                               <div className='likes'>
                                 <Typography className={classes.typo} variant='body2'>Liked By {post.likes.length == 0 ? 'nobody' : ` others`}</Typography>
                                 </div>
-                                {/* <AddComment  userData={userData} postData={post}/>  */}
+                                <AddComment  userData={userData} postData={post}/> 
                                 </div>
                             </div>
                           </div>
@@ -182,6 +182,5 @@ function Posts({userData=null}) {
         </>
     )
 }
-
 
 export default Posts
