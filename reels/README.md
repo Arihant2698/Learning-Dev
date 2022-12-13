@@ -1,3 +1,18 @@
+Steps to do firebase hosting 
+https://medium.com/google-developer-experts/deploy-your-app-to-firebase-in-seconds-b3a9a37dff47
+
+
+1.npm install firebase-tools
+2.firebase logout /// to logout firebase
+3.firebase login OR npx firebase login
+4.firebase init OR npx firebase init
+5.select hosting and ur project then build and single page and github no
+6.npm run build
+7.npm install uuid
+8.firebase deploy
+Link of site :https://reels-3aedf.web.app/
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
