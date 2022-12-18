@@ -11,14 +11,8 @@ function App() {
        <BallContainer/>
        <BatContainer/>
      </div>
-
    </Provider>
   );
-    <Provider store={store}>
-      <BallContainer/>
-      <BatContainer/>
-    </Provider>
-    );
 }
 
 export default App;
