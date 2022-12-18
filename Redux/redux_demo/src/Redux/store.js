@@ -1,7 +1,6 @@
 import {createStore} from "redux";
 import {composeWithDevTools} from 'redux-devtools-extension'
-import BallReducer from "./balls/BallReducer";
-
-const store = createStore(BallReducer,composeWithDevTools());
+import rootReducer from "./rootReducer";
+const store = createStore(rootReducer,composeWithDevTools());
 
 export default store;
